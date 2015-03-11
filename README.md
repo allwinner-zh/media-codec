@@ -1,2 +1,2 @@
 # media-codec
-Video and audio deconde/encode libraries.
+Video and audio decode/encode libraries.
