@@ -3517,97 +3517,16 @@ static void* ComponentThread(void* pThreadData)
                         int64_t start, end;                            
                         start = OMX_GetNowUs();
 #endif
-                        MemAdapterFlushCache(picture->pData0,picture->nWidth* picture->nHeight* 2);
-                        if(pSelf->mVp9orH265SoftDecodeFlag==OMX_TRUE)
-                            TransformYV12ToYUV420Soft(picture, pOutBufHdr->pBuffer);
-                        else
-                        {
-                            TransformYV12ToYUV420(picture, pOutBufHdr->pBuffer);	// YUV420 planar                            
-#if 0
-                            if(count == 0)
-                            {
-                                FILE*fp1 = NULL;
-                                size_t n = 0;
-                                //fp1 = fopen("/data/camera/y.dat", "wb");
-                                fp1 = fopen("/home/linaro/yyy.dat", "wb");
-                                //fwrite(pPicture->pData0, 1, pPicture->nWidth*pPicture->nHeight, fp1);
-                                n = fwrite(pOutBufHdr->pBuffer, 1, picture->nWidth*picture->nHeight, fp1);
-                                logd("xxx y size n=%zu", n);
-                                fclose(fp1);
-                                //fp1 = fopen("/data/camera/u.dat", "wb");
-                                fp1 = fopen("/home/linaro/uuu.dat", "wb");
-                                
-                                //fwrite(pPicture->pData1, 1, pPicture->nWidth*pPicture->nHeight, fp1);
-                                
-                                n = fwrite(pOutBufHdr->pBuffer+picture->nWidth*picture->nHeight, 1, picture->nWidth*picture->nHeight/2, fp1);
-                                logd("xxx uv size n=%zu", n);
-                                fclose(fp1);
+                        MemAdapterFlushCache(picture->pData0, picture->nWidth* picture->nHeight* 2);
 
-                            }
-                            count++;
-                            //memset(pOutBufHdr->pBuffer, 0x00, picture->nWidth*picture->nHeight*3/2);//* for test
-#endif
-
+                        TransformToYUVPlaner(picture, pOutBufHdr->pBuffer);
+                        
 #if OPEN_LINUX_STATISTICS
-                            end = OMX_GetNowUs();
-                            pSelf->mConvertTotalDuration += (end-start);
-                            pSelf->mConvertTotalCount++;
-                            logd("xxxxxxxxxxx cur TransformYV12ToYUV420 time:%.3f, avg time:%.3f", (float)(end-start)/1000.0, (float)pSelf->mConvertTotalDuration/pSelf->mConvertTotalCount/1000);
-#endif
-                        }
-                	}
-                	else
-                	{
-#if CONFIG_OS == OPTION_OS_ANDROID       
-
-                      #if (OPEN_STATISTICS)
-                        nTimeUs1 = OMX_GetNowUs();
-                      #endif
-                      
-                    	void* dst;
-                        buffer_handle_t         pBufferHandle = NULL; 
-
-                    	android::GraphicBufferMapper &mapper = android::GraphicBufferMapper::get();
-
-                    	//*when lock gui buffer, we must according gui buffer's width and height, not by decoder!
-                        android::Rect bounds(pSelf->m_sOutPortDef.format.video.nFrameWidth, pSelf->m_sOutPortDef.format.video.nFrameHeight);
-
-                        #if (CONFIG_OS_VERSION >= OPTION_OS_VERSION_ANDROID_4_4)
-                            if(pSelf->m_storeOutputMetaDataFlag ==OMX_TRUE)
-                            {
-                                VideoDecoderOutputMetaData *pMetaData = (VideoDecoderOutputMetaData*)pOutBufHdr->pBuffer;
-                                pBufferHandle = pMetaData->pHandle;
-                            }
-                            else
-                                pBufferHandle = (buffer_handle_t)pOutBufHdr->pBuffer;
-                        #elif(CONFIG_OS_VERSION == OPTION_OS_VERSION_ANDROID_4_2)
-                            pBufferHandle = (buffer_handle_t)pOutBufHdr->pBuffer;
-                        #endif
-
-                        if(0 != mapper.lock(pBufferHandle, GRALLOC_USAGE_SW_WRITE_OFTEN, bounds, &dst))
-                        {
-                            logw("Lock GUIBuf fail!");
-                        }
-                        
-                        //TransformMB32ToYV12(&picture, dst);
-                        
-                        if(pSelf->mVp9orH265SoftDecodeFlag==OMX_TRUE)
-                            TransformYV12ToYV12Soft(picture, dst);
-                        else
-                            TransformYV12ToYV12Hw(picture, dst);
-                        
-                        
-                        if(0 != mapper.unlock(pBufferHandle))
-                        {
-                            logw("Unlock GUIBuf fail!");
-                        }
-                        
-                      #if (OPEN_STATISTICS)
-                        nTimeUs2 = OMX_GetNowUs();
-                        pSelf->mConvertTotalDuration += (nTimeUs2-nTimeUs1);
+                        end = OMX_GetNowUs();
+                        pSelf->mConvertTotalDuration += (end-start);
                         pSelf->mConvertTotalCount++;
-                      #endif
-#endif                  
+                        logd("xxxxxxxxxxx cur TransformYV12ToYUV420 time:%.3f, avg time:%.3f", (float)(end-start)/1000.0, (float)pSelf->mConvertTotalDuration/pSelf->mConvertTotalCount/1000);
+#endif
                 	}
 
                 	pOutBufHdr->nTimeStamp = picture->nPts;
@@ -3789,7 +3708,7 @@ static void* ComponentVdrvThread(void* pThreadData)
                     memset(&m_videoConfig,0,sizeof(VConfig));
                     
                     //*set yv12
-                    m_videoConfig.eOutputPixelFormat = PIXEL_FORMAT_YV12; //* test MB32
+                    m_videoConfig.eOutputPixelFormat = PIXEL_FORMAT_YUV_MB32_420; //* test MB32
                     //m_videoConfig.eOutputPixelFormat = PIXEL_FORMAT_DEFAULT;
 #if (CONFIG_PRODUCT == OPTION_PRODUCT_TVBOX)					
 					// omx decoder make out buffer no more than 1920x1080

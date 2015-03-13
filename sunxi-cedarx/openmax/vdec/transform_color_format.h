@@ -26,11 +26,8 @@
 extern "C" {
 #endif
 
-void TransformMB32ToYV12(VideoPicture* pict, void* ybuf);
-void TransformYV12ToYUV420(VideoPicture* pict, void* ybuf);
-void TransformYV12ToYUV420Soft(VideoPicture* pict, void* ybuf);
-void TransformYV12ToYV12Hw(VideoPicture* pict, void* ybuf);
-void TransformYV12ToYV12Soft(VideoPicture* pict, void* ybuf);
+
+void TransformToYUVPlaner(VideoPicture *pict, void* ybuf);
 
 #ifdef __cplusplus
 }

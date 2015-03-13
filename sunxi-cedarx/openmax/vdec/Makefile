@@ -95,9 +95,9 @@ SourceIncludePath = $(foreach dir,$(SourcePath),-I$(dir)) \
 CompileFlags = $(CONFIG_FOR_COMPILE) $(SourceIncludePath) -mfpu=neon -O2 -fPIC -ldl -march=armv7-a
 
 ## set link flags
-LoadFlags = $(CONFIG_FOR_LINK) -ldl -lvdecoder -L../../LIBRARY/CODEC/VIDEO/DECODER  \
+LoadFlags = $(CONFIG_FOR_LINK) -ldl -lvdecoder   \
             -lMemAdapter -L../../LIBRARY/MEMORY  \
-			-L../../LIBRARY/install/lib -shared 
+			-L../../LIBRARY/EXTERNAL/lib32/$(LIBDIR) -shared 
 
 
 ################################################################################

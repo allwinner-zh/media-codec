@@ -16,6 +16,19 @@
 * GNU Lesser General Public License for more details.
 */
 
+/*============================================================================
+                            O p e n M A X   w r a p p e r s
+                             O p e n  M A X   C o r e
+
+*//** @file omx_venc.cpp
+  This module contains the implementation of the OpenMAX core & component.
+
+*//*========================================================================*/
+
+//////////////////////////////////////////////////////////////////////////////
+//                             Include Files
+//////////////////////////////////////////////////////////////////////////////
+
 #include "log.h"
 #include <string.h>
 #include <pthread.h>

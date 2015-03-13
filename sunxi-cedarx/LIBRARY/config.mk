@@ -63,10 +63,17 @@ OPTION_LOG_LEVEL_DETAIL  = 4
 ## configuration.
 CONFIG_CC = $(OPTION_CC_GNUEABIHF)
 CONFIG_OS = $(OPTION_OS_LINUX)
-CONFIG_OS_VERSION = $(OPTION_OS_VERSION_ANDROID_4_4)
 CONFIG_MEMORY_DRIVER = $(OPTION_MEMORY_DRIVER_VE)
-CONFIG_PRODUCT = $(OPTION_PRODUCT_TVBOX)
-CONFIG_CHIP = $(OPTION_CHIP_1639)
+CONFIG_CHIP = $(OPTION_CHIP_1651)
+
+LIBDIR=unknow
+ifeq ($(CONFIG_CC), $(OPTION_CC_GNUEABIHF))
+    LIBDIR=lgnueabihf
+endif
+
+ifeq ($(CONFIG_CC), $(OPTION_CC_GNUEABI))
+    LIBDIR=lgnueabi
+endif
 
 ##############################define global val#################################
 

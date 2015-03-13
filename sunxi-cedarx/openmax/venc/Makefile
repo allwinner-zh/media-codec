@@ -100,9 +100,9 @@ CompileFlags = $(CONFIG_FOR_COMPILE) $(SourceIncludePath) -mfpu=neon -O2 -fPIC -
 #-mfloat-abi=softfp
 
 ## set link flags
-LoadFlags = $(CONFIG_FOR_LINK) -ldl -lvencoder -L../../LIBRARY/CODEC/VIDEO/ENCODER  \
+LoadFlags = $(CONFIG_FOR_LINK) -ldl -lvencoder \
             -lMemAdapter -L../../LIBRARY/MEMORY  \
-			-L../../LIBRARY/install/lib -shared 
+			-L../../LIBRARY/EXTERNAL/lib32/$(LIBDIR) -shared 
 
 
 ################################################################################

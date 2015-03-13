@@ -95,7 +95,6 @@ CompileFlags = $(CONFIG_FOR_COMPILE) $(SourceIncludePath) -mfpu=neon -O0 -fPIC -
 ## set link flags
 LoadFlags = $(CONFIG_FOR_LINK) -ldl -shared -Wl,-E 
 
-
 ################################################################################
 ## make commands, all/clean/cleanall
 ################################################################################
@@ -111,8 +110,6 @@ clean:
 cleanall: clean
 	-rm -f $(DependFilePath)/*
 	-rm -rf $(BuildPath)
-
-
 
 ################################################################################
 ## define target dependencies.

@@ -13,5 +13,5 @@ cleanall:
 	make cleanall -C VE/
 	make cleanall -C MEMORY/
 
-.PHONY: all clean
+.PHONY: all clean cleanall
 
