@@ -1,3 +1,31 @@
+/*--------------------------------------------------------------------------
+Copyright (c) 2011-2012 The Linux Foundation. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of The Linux Foundation nor
+      the names of its contributors may be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--------------------------------------------------------------------------*/
+
 /*
 * Cedarx framework.
 * Copyright (c) 2008-2015 Allwinner Technology Co. Ltd.
@@ -192,7 +220,7 @@ static int get_cmp_index(char *cmp_name)
 			break;
 		}
 	}
-	
+
 	pthread_mutex_unlock(&g_mutex_core_info);
 
 	logi("returning index %d\n", rc);
@@ -235,7 +263,7 @@ static void clear_cmp_handle(OMX_HANDLETYPE inst)
 			}
 		}
 	}
-	
+
 	pthread_mutex_unlock(&g_mutex_core_info);
 
 	return;
@@ -266,7 +294,7 @@ static int is_cmp_handle_exists(OMX_HANDLETYPE inst)
 		return rc;
 
 	pthread_mutex_lock(&g_mutex_core_info);
-	
+
 	for(i=0; i< SIZE_OF_CORE; i++)
 	{
 		for(j=0; j< OMX_COMP_MAX_INST; j++)
@@ -280,7 +308,7 @@ static int is_cmp_handle_exists(OMX_HANDLETYPE inst)
 			}
 		}
 	}
-	
+
 	pthread_mutex_unlock(&g_mutex_core_info);
 
 	return rc;
@@ -308,7 +336,7 @@ static int get_comp_handle_index(char *cmp_name)
 	int rc = -1;
 
 	pthread_mutex_lock(&g_mutex_core_info);
-	
+
 	for(i=0; i< SIZE_OF_CORE; i++)
 	{
 		if(!strcmp(cmp_name, core[i].name))
@@ -319,7 +347,7 @@ static int get_comp_handle_index(char *cmp_name)
 				{
 					rc = j;
 					logi("free handle slot exists %d\n", rc);
-					
+
 				    pthread_mutex_unlock(&g_mutex_core_info);
 					return rc;
 				}
@@ -343,7 +371,7 @@ static int set_comp_handle(char *cmp_name, void *handle)
 	int rc = -1;
 
 	pthread_mutex_lock(&g_mutex_core_info);
-	
+
 	for(i=0; i< SIZE_OF_CORE; i++)
 	{
 		if(!strcmp(cmp_name, core[i].name))
@@ -415,7 +443,7 @@ static int check_lib_unload(int index)
 		}
 
 		core[index].so_lib_handle = NULL;
-		core[index].fn_ptr = NULL;		
+		core[index].fn_ptr = NULL;
 	}
 
 	pthread_mutex_unlock(&g_mutex_core_info);
@@ -590,8 +618,8 @@ OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_GetHandle(OMX_OUT OMX_HANDLETYPE* handle,
 
 			// logi("core[cmp_index].fn_ptr: %x", core[cmp_index].fn_ptr);
 
-			fn_ptr = omx_core_load_cmp_library(cmp_index);				
-		
+			fn_ptr = omx_core_load_cmp_library(cmp_index);
+
 			if(fn_ptr)
 			{
 				// Construct the component requested
@@ -609,7 +637,7 @@ OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_GetHandle(OMX_OUT OMX_HANDLETYPE* handle,
 					}
 
 					aw_omx_component_set_callbacks(hComp, callBacks, appData);
-					
+
 					hnd_index = set_comp_handle(componentName, hComp);
 					if(hnd_index >= 0)
 					{
@@ -678,7 +706,7 @@ OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_FreeHandle(OMX_IN OMX_HANDLETYPE hComp)
 		// 1. Delete the component
 		if ((eRet = aw_omx_component_deinit(hComp)) == OMX_ErrorNone)
 		{
-		
+
 			clear_cmp_handle(hComp);
 
 			/* Unload component library */
