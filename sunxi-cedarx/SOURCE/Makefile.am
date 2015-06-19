@@ -1,4 +1,4 @@
 
-SUBDIRS = base common vdecoder omxil plugin
+SUBDIRS = base common vdecoder vencoder omxil plugin 
 
 #LDFLAGS = -Wl,--no-undefined

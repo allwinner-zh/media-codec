@@ -19,6 +19,7 @@
 #define LOG_H
 
 #include "CdxConfig.h"
+#include <CdxUtils.h>
 
 #ifndef LOG_TAG
 #define LOG_TAG "awplayer"
@@ -52,7 +53,12 @@
     #error "invalid configuration of os."
 #endif
 
-#define loge(fmt, arg...) AWLOG(LOG_LEVEL_ERROR, "\033[40;31m"fmt"\033[0m", ##arg)
+#define loge(fmt, arg...) \
+    do { \
+        AWLOG(LOG_LEVEL_ERROR, "\033[40;31m"fmt"\033[0m", ##arg) ; \
+        CdxBTDump(); \
+    } while (0)
+    
 #define logw(fmt, arg...) AWLOG(LOG_LEVEL_WARNING, fmt, ##arg)
 #define logi(fmt, arg...)
 #define logd(fmt, arg...) AWLOG(LOG_LEVEL_WARNING, fmt, ##arg)

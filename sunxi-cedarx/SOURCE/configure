@@ -16073,7 +16073,7 @@ fi
 done
 
 
-ac_config_files="$ac_config_files Makefile base/Makefile common/Makefile omxil/Makefile vdecoder/Makefile plugin/Makefile plugin/vdecoder/Makefile plugin/vdecoder/h264/Makefile plugin/vdecoder/mjpeg/Makefile plugin/vdecoder/mpeg2/Makefile plugin/vdecoder/mpeg4/Makefile plugin/vdecoder/others/Makefile"
+ac_config_files="$ac_config_files Makefile base/Makefile common/Makefile omxil/Makefile vdecoder/Makefile vencoder/Makefile plugin/Makefile plugin/vdecoder/Makefile plugin/vdecoder/h264/Makefile plugin/vdecoder/mjpeg/Makefile plugin/vdecoder/mpeg2/Makefile plugin/vdecoder/mpeg4/Makefile plugin/vdecoder/others/Makefile plugin/vencoder/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -17187,6 +17187,7 @@ do
     "common/Makefile") CONFIG_FILES="$CONFIG_FILES common/Makefile" ;;
     "omxil/Makefile") CONFIG_FILES="$CONFIG_FILES omxil/Makefile" ;;
     "vdecoder/Makefile") CONFIG_FILES="$CONFIG_FILES vdecoder/Makefile" ;;
+    "vencoder/Makefile") CONFIG_FILES="$CONFIG_FILES vencoder/Makefile" ;;
     "plugin/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/Makefile" ;;
     "plugin/vdecoder/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vdecoder/Makefile" ;;
     "plugin/vdecoder/h264/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vdecoder/h264/Makefile" ;;
@@ -17194,6 +17195,7 @@ do
     "plugin/vdecoder/mpeg2/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vdecoder/mpeg2/Makefile" ;;
     "plugin/vdecoder/mpeg4/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vdecoder/mpeg4/Makefile" ;;
     "plugin/vdecoder/others/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vdecoder/others/Makefile" ;;
+    "plugin/vencoder/Makefile") CONFIG_FILES="$CONFIG_FILES plugin/vencoder/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

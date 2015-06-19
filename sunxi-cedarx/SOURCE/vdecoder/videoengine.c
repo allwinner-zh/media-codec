@@ -337,7 +337,7 @@ int VideoEngineDecode(VideoEngine* pVideoEngine,
 
 /* /proc/[pid]/maps */
 
-int GetLocalPathFromProcessMaps(char *localPath, int len)
+static int GetLocalPathFromProcessMaps(char *localPath, int len)
 {
 #define LOCAL_LIB "libcedar_vdecoder.so"
     char path[512] = {0};

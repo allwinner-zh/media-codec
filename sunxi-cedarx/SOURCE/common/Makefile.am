@@ -12,6 +12,8 @@ LOCAL_INCLUDE = -I./include \
                 -I$(top_srcdir)/base/include
 libcedar_common_la_CFLAGS += $(LOCAL_INCLUDE)
 
+libcedar_common_la_LIBADD = $(top_srcdir)/base/libcedar_base.la 
+
 libcedar_common_la_LDFLAGS = $(CEDAR_LDFLAGS)
 
 

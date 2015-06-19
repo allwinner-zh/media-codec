@@ -22,10 +22,14 @@
 extern "C"
 {
 #endif
+#include <CdxTypes.h>
 
-cdx_int64 CdxGetNowUs(cdx_void);
+cdx_int64 CdxGetNowUs();
+
+void CdxBTDump(void);
 
 #ifdef __cplusplus
 }
 #endif
+
 #endif

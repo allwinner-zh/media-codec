@@ -106,7 +106,7 @@ int VeInitialize(void)
 #if (CONFIG_MEMORY_DRIVER == OPTION_MEMORY_DRIVER_VE)
         firstMemchunk.physAddr = gVeEnvironmentInfo.phymem_start - PAGE_OFFSET;
         firstMemchunk.size = gVeEnvironmentInfo.phymem_total_size;
-        logd("xxxxxxx firstMemchunk.size(%d)", firstMemchunk.size);
+        logd("xxxxxxx firstMemchunk.size(%d) '0x%x'", firstMemchunk.size, firstMemchunk.physAddr);
 #endif
     }
     
@@ -291,6 +291,7 @@ void VeEnableEncoder()
 	volatile vetop_reg_mode_sel_t* pVeModeSelect;
 	pthread_mutex_lock(&gVeRegisterMutex);
 	pVeModeSelect = (vetop_reg_mode_sel_t*)(gVeEnvironmentInfo.address_macc + VE_MODE_SELECT);
+	pVeModeSelect->mode = 11;
 	pVeModeSelect->enc_enable = 1;
 	pVeModeSelect->enc_isp_enable = 1;
 	pthread_mutex_unlock(&gVeRegisterMutex);
@@ -301,6 +302,7 @@ void VeDisableEncoder()
 	volatile vetop_reg_mode_sel_t* pVeModeSelect;
 	pthread_mutex_lock(&gVeRegisterMutex);
 	pVeModeSelect = (vetop_reg_mode_sel_t*)(gVeEnvironmentInfo.address_macc + VE_MODE_SELECT);
+	pVeModeSelect->mode = 0x7;
 	pVeModeSelect->enc_enable = 0;
 	pVeModeSelect->enc_isp_enable = 0;
 	pthread_mutex_unlock(&gVeRegisterMutex);	
@@ -395,9 +397,9 @@ void *VeMalloc(int size)
     pthread_mutex_lock(&gVeMemoryMutex);
 
     void *addr = NULL;
-    size = (size + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1);
+    size = (size + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1); /* align to 4096 */
     struct MemChunkS *c, *bestChunk = NULL;
-    for(c = &firstMemchunk; c != NULL; c = c->next)
+    for (c = &firstMemchunk; c != NULL; c = c->next)
     {
         if(c->virtAddr == NULL && c->size >= size)
         {

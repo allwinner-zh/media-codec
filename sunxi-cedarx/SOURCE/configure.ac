@@ -44,6 +44,7 @@ AC_CONFIG_FILES([Makefile
                  common/Makefile
                  omxil/Makefile
                  vdecoder/Makefile
+                 vencoder/Makefile
                  plugin/Makefile
                  plugin/vdecoder/Makefile
                  plugin/vdecoder/h264/Makefile

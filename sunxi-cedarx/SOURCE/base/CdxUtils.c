@@ -18,6 +18,8 @@
 #include <CdxTypes.h>
 
 #include <sys/time.h>
+#include <execinfo.h>
+#include <CdxLog.h>
 
 //#include <CdxUtils.h>
 
@@ -27,5 +29,25 @@ cdx_int64 CdxGetNowUs(cdx_void)
     gettimeofday(&tv, NULL);
 
     return (cdx_int64)tv.tv_usec + tv.tv_sec * 1000000ll;
+}
+
+void CdxBTDump(void)
+{
+    /*
+    int ret, i;
+    void *buffer[128] = {NULL};
+    char **bt;
+    
+    ret = backtrace(buffer, 128);
+    bt = backtrace_symbols(buffer, ret);
+    CDX_LOGW("-----------------BT START. (%d) (%p)---------------", ret, bt);
+    for (i = 0; i < ret; i++)
+    {
+        CDX_LOGW("<DEBUG>: %s", bt[i]);
+    }
+    
+    CDX_LOGW("-----------------BT END.---------------");
+*/
+    return ;
 }
 
