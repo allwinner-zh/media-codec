@@ -1,15 +1,20 @@
 /*
- * Copyright (C) 2008-2015 Allwinner Technology Co. Ltd. 
- * Author: Ning Fang <fangning@allwinnertech.com>
- *         Caoyuan Yang <yangcaoyuan@allwinnertech.com>
- * 
- * This software is confidential and proprietary and may be used
- * only as expressly authorized by a licensing agreement from 
- * Softwinner Products. 
- *
- * The entire notice above must be reproduced on all copies 
- * and should not be removed. 
- */
+* Cedarx framework.
+* Copyright (c) 2008-2015 Allwinner Technology Co. Ltd.
+* Author: Ning Fang <fangning@allwinnertech.com>
+* 
+* This file is part of Cedarx.
+*
+* Cedarx is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
+*
+* This program is distributed "as is" WITHOUT ANY WARRANTY of any
+* kind, whether express or implied; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Lesser General Public License for more details.
+*/
  
 #include "log.h"
 
