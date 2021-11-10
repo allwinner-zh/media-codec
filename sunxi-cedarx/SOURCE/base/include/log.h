@@ -48,7 +48,7 @@
     #define LOG_LEVEL_DEBUG     "debug  "
     
     #define AWLOG(level, fmt, arg...)  \
-        printf("%s: %s <%s:%u>: "fmt"\n", level, LOG_TAG, __FILE__, __LINE__, ##arg)
+        printf("%s: %s <%s:%u>: "#fmt"\n", level, LOG_TAG, __FILE__, __LINE__, ##arg)
 #else
     #error "invalid configuration of os."
 #endif
